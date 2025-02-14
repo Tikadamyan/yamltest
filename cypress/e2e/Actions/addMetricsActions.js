@@ -1,5 +1,5 @@
-import faker from 'faker'; 
-import { metricsAPIEndpoint } from '../Elements/metricsElements';
+import { faker } from '@faker-js/faker';
+import { metricsAPIEndpoint } from '../Endpoints/metricsPageEndpoint';
 
 class AddMetrics {
 
@@ -16,8 +16,9 @@ class AddMetrics {
       },
       body: {
         "description": "",
+        "type": "",
         "formula": "",
-        "level": 200,
+        "level": 0,
         "name": metricName,
         "uom": "USD"
       }

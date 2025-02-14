@@ -1,9 +1,9 @@
-import faker from 'faker';
-import { teamsAPIEndpoint } from '../Elements/teamsElements';
+import { faker } from '@faker-js/faker';
+import { teamsAPIEndpoint } from '../Endpoints/teamsPageEndpoint';
 
 class AddTeamsActions {
     generateRandomTeamsName() {
-        return faker.company.companyName();
+        return faker.company.name(); 
     }
 
     addTeam(teamName, token) {

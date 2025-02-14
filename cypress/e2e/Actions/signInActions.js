@@ -1,4 +1,4 @@
-import { signInAPIEndpoint } from "../Elements/signInElements";
+import { signInAPIEndpoint } from '../Endpoints/signInPageEndpoint';
 
 class SignInActions {
     

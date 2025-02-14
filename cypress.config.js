@@ -4,9 +4,9 @@ module.exports = defineConfig({
   e2e: {
     setupNodeEvents(on, config) {
       config.env = {
-        apiBaseUrl: 'https://api.prodmap.ai'
+        apiBaseUrl: 'https://api.dev.prodmap.ai'
       };
-
+          
       return config;
     },
   },
