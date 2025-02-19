@@ -1,0 +1,1 @@
+export const userIdeaApiEndpoint = `${Cypress.env('apiBaseUrl')}/api/v1/workspaces/1440/ideas`;
