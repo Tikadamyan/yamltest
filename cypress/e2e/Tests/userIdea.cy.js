@@ -2,7 +2,7 @@ import AuthActions from '../Actions/authActions';
 import UserIdeaActions from '../Actions/userIdeaActions';
 import {generateIdeaData, generateUpdatedIdeaData} from "../ConstData/userIdeasConstants";
 
-describe('User Authentication and Invite', () => {
+describe('UserIdea Tests', () => {
     let idToken;
     let ideaId;
     let ideaData;
