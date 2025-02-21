@@ -25,7 +25,6 @@ class UserIdeaActions {
             headers: {
                 'Authorization': `Bearer ${token}`
             },
-            failOnStatusCode: false // after fixing the issue with Delete, this part will be removed
         });
     }
 
