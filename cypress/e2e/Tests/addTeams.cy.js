@@ -1,21 +1,37 @@
 import AuthActions from '../Actions/authActions';
-import AddTeamsActions from '../Actions/addTeamsAction';
+import AddTeamsActions from '../Actions/addTeamsActions';
+import InviteUserActions from "../Actions/inviteUserActions";
+import teamGroupActions from "../Actions/team-groupActions";
 
 
 describe('Teams Management', () => {
-  let idToken;
-  let createdTeamId;
+  let idToken, createdTeamId, leadId, teamGroupId;
   const randomTeamName = AddTeamsActions.generateRandomTeamsName();
   const updateTeamName = AddTeamsActions.generateRandomTeamsName();
+  const randomEmail = InviteUserActions.generateRandomEmail();
+  const groupName = AddTeamsActions.generateRandomTeamsName();
 
-  beforeEach(() => {
+  before(() => {
     return AuthActions.signInAndSaveToken().then((token) => {
       idToken = token;
+    }).then(() => {
+      InviteUserActions.inviteUser(randomEmail, idToken).then((response) => {
+        expect(response.status).to.eq(200);
+        expect(response.body[0].email).to.eq(randomEmail);
+        leadId = response.body[0].id;
+      });
+    }).then(() => {
+        teamGroupActions.addTeamGroup(groupName, idToken).then((response) => {
+            expect(response.status).to.eq(201);
+            expect(response.body.name).to.eq(groupName);
+            expect(response.body).to.have.property('id');
+            teamGroupId = response.body.id;
+        })
     })
   })
 
   it('should add a team successfully', () => {
-    AddTeamsActions.addTeam(randomTeamName, idToken).then((response) => {
+    AddTeamsActions.addTeam(randomTeamName, idToken, leadId).then((response) => {
       expect(response.status).to.eq(200);
       expect(response.body.name).to.eq(randomTeamName);
       expect(response.body).to.have.property('id');
@@ -30,11 +46,12 @@ describe('Teams Management', () => {
       expect(findInTeams).to.be.exist;
       expect(findInTeams.id).to.eq(createdTeamId);
       expect(findInTeams.name).to.eq(randomTeamName);
+      expect(findInTeams.lead.id).to.eq(leadId);
     })
   });
 
   it('Should Update team info', () => {
-    AddTeamsActions.updateTeamInfo(createdTeamId, updateTeamName, idToken).then((response) => {
+    AddTeamsActions.updateTeamInfo(createdTeamId, updateTeamName, idToken, leadId, teamGroupId).then((response) => {
       expect(response.status).to.eq(204);
       cy.log(updateTeamName);
     })
@@ -45,13 +62,15 @@ describe('Teams Management', () => {
       expect(response.status).to.eq(200);
       expect(response.body.id).to.eq(createdTeamId);
       expect(response.body.name).to.eq(updateTeamName);
+      expect(response.body.group.id).to.eq(teamGroupId);
+      expect(response.body.group.name).to.eq(groupName);
     })
   });
 
-  // when fix this global issue need to some changes in the code
+  /* This part will be used after fixing team delete issue.
   it('Should delete the team', () => {
     AddTeamsActions.deleteTeam(createdTeamId, idToken).then((response) => {
-      expect(response.status).to.eq(500);
+      expect(response.status).to.eq(200);
     })
-  });
+  });  */
 });

@@ -6,7 +6,7 @@ class AddTeamsActions {
         return faker.company.name(); 
     }
 
-    addTeam(teamName, token) {
+    addTeam(teamName, token, userId) {
         return cy.request({
             method: 'POST',
             url: teamsAPIEndpoint,
@@ -14,7 +14,7 @@ class AddTeamsActions {
                 'Authorization': `Bearer ${token}`
             },
             body: {
-                lead: null,
+                lead: userId,
                 name: teamName,
                 productIds: [],
                 userIds: [],
@@ -43,7 +43,7 @@ class AddTeamsActions {
         })
     }
 
-    updateTeamInfo(teamId, teamName, token) {
+    updateTeamInfo(teamId, teamName, token, userId, groupId) {
         return cy.request({
             method: 'PUT',
             url: `${teamsAPIEndpoint}/${teamId}`,
@@ -51,27 +51,24 @@ class AddTeamsActions {
                 'Authorization': `Bearer ${token}`
             },
             body: {
-                lead: null,
+                lead: userId,
                 name: teamName,
                 productIds: [],
                 userIds: [],
-                group: null
+                group: groupId
             }
         })
     }
-
-    deleteTeam(teamId, token) {
+    /* This part will be used after fixing team delete issue.
+   deleteTeam(teamId, token) {
         return cy.request({
             method: 'DELETE',
             url: `${teamsAPIEndpoint}/${teamId}`,
             headers: {
                 'Authorization': `Bearer ${token}`
-            },
-            failOnStatusCode: false // when fix this global issue need to some changes in the code
+            }
         })
-    }
+    }  */
 }
 
 export default new AddTeamsActions();
-
-
