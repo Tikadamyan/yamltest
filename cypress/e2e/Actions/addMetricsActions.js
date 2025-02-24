@@ -4,7 +4,7 @@ import { metricsAPIEndpoint } from '../Endpoints/metricsPageEndpoint';
 class AddMetrics {
 
   generateRandomMetricsName() {
-    return faker.hacker.noun().toLowerCase();
+    return faker.company.name();
   }
 
   addMetrics(metricName, token) {
