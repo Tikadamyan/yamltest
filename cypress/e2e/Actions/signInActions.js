@@ -1,14 +1,14 @@
-import { signInAPIEndpoint } from '../Endpoints/signInPageEndpoint';
+import {signInAPIEndpoint} from "../Endpoints/apiEndpoints";
 
 class SignInActions {
     
-    signInAPI() {
+    signInAPI(username, password) {
         return cy.request({
             method: 'POST',
             url: signInAPIEndpoint,
             body: {
-                userName: "ashsargsyann5@gmail.com",
-                password: "Testdevelopment1!"
+                userName: username,
+                password: password
             }
         });
     }

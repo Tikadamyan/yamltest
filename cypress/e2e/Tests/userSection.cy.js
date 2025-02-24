@@ -1,14 +1,9 @@
 import AuthActions from '../Actions/authActions';
 import { CreateUser, EditUser, GetUsers, DeactivateUser, DeleteUser } from '../Actions/userActions';
+import {admin} from "../ConstData/users";
 
 describe('User API Test', () => {
-  let idToken;
-  let createUser;
-  let editUser;
-  let getUsers;
-  let createdUserId;
-  let deactivateUser;
-  let deleteUser;
+  let idToken, createUser, editUser, getUsers, createdUserId, deactivateUser, deleteUser;
 
   beforeEach(() => {
     createUser = new CreateUser();
@@ -17,7 +12,7 @@ describe('User API Test', () => {
     deactivateUser = new DeactivateUser();
     deleteUser = new DeleteUser();
 
-    return AuthActions.signInAndSaveToken().then((token) => {
+    return AuthActions.signInAndSaveToken(admin.userName, admin.password).then((token) => {
       idToken = token;
     });
   });

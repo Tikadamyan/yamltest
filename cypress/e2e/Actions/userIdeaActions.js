@@ -1,4 +1,4 @@
-import {userIdeaApiEndpoint} from '../Endpoints/userIdeaPageEndpoint';
+import {userIdeaApiEndpoint} from "../Endpoints/apiEndpoints";
 
 class UserIdeaActions {
     createIdea(token, title, description, productId, priority) {
@@ -55,4 +55,3 @@ class UserIdeaActions {
 }
 
 export default new UserIdeaActions();
-

@@ -1,4 +1,4 @@
-import {teamGroupAPIEndpoint} from "../Endpoints/team-groupEndpoint";
+import {teamGroupAPIEndpoint} from "../Endpoints/apiEndpoints";
 
 class teamGroupActions {
 
@@ -24,29 +24,6 @@ class teamGroupActions {
             }
         })
     }
-
-    updateTeamGroup(teamGroupName,teamGroupId, token) {
-        return cy.request({
-            method: 'PUT',
-            url: `${teamGroupAPIEndpoint}/${teamGroupId}`,
-            headers: {
-                'Authorization': `Bearer ${token}`
-            },
-            body: {
-                name: teamGroupName,
-            }
-        })
-    }
-
-    getTeamGroup(teamGroupId, token) {
-        return cy.request({
-            method: 'GET',
-            url: `${teamGroupAPIEndpoint}/${teamGroupId}`,
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
-        })
-    }
 }
 
-export default new teamGroupActions();
+export default new teamGroupActions()

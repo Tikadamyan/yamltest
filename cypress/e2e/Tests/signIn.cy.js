@@ -1,8 +1,9 @@
 import SignInActions from '../Actions/signInActions';
+import {admin} from "../ConstData/users";
 
 describe('Sign In API', () => {
     it('should sign in successfully and get a token', () => {
-        SignInActions.signInAPI().then((response) => {
+        SignInActions.signInAPI(admin.userName, admin.password).then((response) => {
             const user = response.body.loggedInUser.user;
 
             expect(response.status).to.eq(201);

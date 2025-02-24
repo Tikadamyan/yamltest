@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker';
-import { teamsAPIEndpoint } from '../Endpoints/teamsPageEndpoint';
+import {teamsAPIEndpoint} from "../Endpoints/apiEndpoints";
 
 class AddTeamsActions {
     generateRandomTeamsName() {

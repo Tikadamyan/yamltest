@@ -1,11 +1,12 @@
 import AuthActions from '../Actions/authActions';
 import CreateProduct from '../Actions/createProductActions';
+import {admin} from "../ConstData/users";
 
 describe('Product API Test', () => {
   let idToken;
 
   before(() => {
-    return AuthActions.signInAndSaveToken().then((token) => {
+    return AuthActions.signInAndSaveToken(admin.userName, admin.password).then((token) => {
       idToken = token;
     });
   });

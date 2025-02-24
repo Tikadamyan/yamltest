@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker';
-import { inviteUserAPIEndpoint } from '../Endpoints/userInviteEndpoint';
+import {inviteUserAPIEndpoint} from "../Endpoints/apiEndpoints";
 
 class InviteUserActions {
     

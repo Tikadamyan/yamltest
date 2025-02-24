@@ -1,18 +1,14 @@
 import AuthActions from '../Actions/authActions';
 import UserIdeaActions from '../Actions/userIdeaActions';
 import {generateIdeaData, generateUpdatedIdeaData} from "../ConstData/userIdeasConstants";
+import {admin} from "../ConstData/users";
 
 describe('UserIdea Tests', () => {
-    let idToken;
-    let ideaId;
-    let ideaData;
-    let updatedIdeaData;
-
+    let idToken, ideaId, ideaData, updatedIdeaData;
 
     beforeEach(() => {
-        return AuthActions.signInAndSaveToken().then((token) => {
+        return AuthActions.signInAndSaveToken(admin.userName, admin.password).then((token) => {
             idToken = token;
-
         });
     });
 

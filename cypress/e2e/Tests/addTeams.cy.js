@@ -2,6 +2,7 @@ import AuthActions from '../Actions/authActions';
 import AddTeamsActions from '../Actions/addTeamsActions';
 import InviteUserActions from "../Actions/inviteUserActions";
 import teamGroupActions from "../Actions/team-groupActions";
+import {admin} from "../ConstData/users";
 
 
 describe('Teams Management', () => {
@@ -12,7 +13,7 @@ describe('Teams Management', () => {
   const groupName = AddTeamsActions.generateRandomTeamsName();
 
   before(() => {
-    return AuthActions.signInAndSaveToken().then((token) => {
+    return AuthActions.signInAndSaveToken(admin.userName, admin.password).then((token) => {
       idToken = token;
     }).then(() => {
       InviteUserActions.inviteUser(randomEmail, idToken).then((response) => {

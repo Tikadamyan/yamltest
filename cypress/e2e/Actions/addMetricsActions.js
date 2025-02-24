@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker';
-import { metricsAPIEndpoint } from '../Endpoints/metricsPageEndpoint';
+import { metricsAPIEndpoint } from '../Endpoints/apiEndpoints';
 
 class AddMetrics {
 

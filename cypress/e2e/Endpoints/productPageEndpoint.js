@@ -1,1 +1,0 @@
-export const productsAPIEndpoint = `${Cypress.env('apiBaseUrl')}/api/v1/workspaces/1440/products`;

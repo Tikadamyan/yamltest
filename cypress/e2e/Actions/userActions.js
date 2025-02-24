@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker';
-import { createUserAPIEndpoint } from '../Endpoints/userPageEndpoint';
+import {createUserAPIEndpoint} from "../Endpoints/apiEndpoints";
 
 class CreateUser {
     generateRandomEmail() {
@@ -77,6 +77,4 @@ class DeleteUser {
     }
 }
 
-
 export { CreateUser, EditUser, GetUsers, DeactivateUser, DeleteUser};
-

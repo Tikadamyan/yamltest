@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker';
-import { productsAPIEndpoint } from '../Endpoints/productPageEndpoint';
+import {productsAPIEndpoint} from "../Endpoints/apiEndpoints";
 
 class CreateProduct {
     generateRandomProductName() {
