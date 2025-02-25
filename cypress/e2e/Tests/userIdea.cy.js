@@ -1,20 +1,28 @@
 import AuthActions from '../Actions/authActions';
 import UserIdeaActions from '../Actions/userIdeaActions';
-import {generateIdeaData, generateUpdatedIdeaData} from "../ConstData/userIdeasConstants";
+import {generateIdeaData, generateUpdatedIdeaData} from "../Actions/userIdeaActions";
 import {admin} from "../ConstData/users";
+import CreateProduct from "../Actions/createProductActions";
 
 describe('UserIdea Tests', () => {
-    let idToken, ideaId, ideaData, updatedIdeaData;
+    let idToken, ideaId, ideaData, updatedIdeaData, productId;
+    const randomProductName = CreateProduct.generateRandomProductName();
 
-    beforeEach(() => {
+
+    before(() => {
         return AuthActions.signInAndSaveToken(admin.userName, admin.password).then((token) => {
             idToken = token;
+        }).then(() => {
+            CreateProduct.createProduct(randomProductName, idToken).then((response) => {
+                expect(response.status).to.eq(200);
+                expect(response.body.title).to.eq(randomProductName)
+                productId = response.body.id
+            });
         });
     });
 
     it('Should Create User Idea Successfully', () => {
-        ideaData = generateIdeaData()
-        const productId = 1616
+        ideaData = generateIdeaData();
 
         return UserIdeaActions.createIdea(idToken, ideaData.title, ideaData.description, productId, ideaData.priority)
             .then((response) => {
