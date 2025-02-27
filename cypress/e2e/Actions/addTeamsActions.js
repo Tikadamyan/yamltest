@@ -1,10 +1,11 @@
 import { faker } from '@faker-js/faker';
 import {teamsAPIEndpoint} from "../Endpoints/apiEndpoints";
 
+export const randomTeamName = faker.company.name();
+export const updateTeamName = faker.company.name();
+export const groupName = faker.company.name();
+
 class AddTeamsActions {
-    generateRandomTeamsName() {
-        return faker.company.name(); 
-    }
 
     addTeam(teamName, token, userId) {
         return cy.request({

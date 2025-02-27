@@ -1,10 +1,9 @@
 import { faker } from '@faker-js/faker';
 import {productsAPIEndpoint} from "../Endpoints/apiEndpoints";
 
+export const randomProductName = faker.commerce.productName().toLowerCase();
+
 class CreateProduct {
-    generateRandomProductName() {
-        return faker.commerce.productName().toLowerCase();
-    }
 
     createProduct(productname, token) {
         return cy.request({

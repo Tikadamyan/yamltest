@@ -1,14 +1,13 @@
 import teamGroupActions from "../Actions/team-groupActions";
 import AuthActions from "../Actions/authActions";
-import addTeamsActions from "../Actions/addTeamsActions";
+import {groupName} from "../Actions/addTeamsActions";
 import {admin} from "../ConstData/users";
 
 describe('Team Group Actions', () => {
     let idToken, teamGroupId;
-    const groupName = addTeamsActions.generateRandomTeamsName();
 
     before(() => {
-        return AuthActions.signInAndSaveToken(admin.userName, admin.password).then((token) => {
+        return AuthActions.signInAndSaveToken(admin.userName, admin.password).then(({token}) => {
             idToken = token;
         })
     })

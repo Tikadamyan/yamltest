@@ -3,14 +3,13 @@ import UserIdeaActions from '../Actions/userIdeaActions';
 import {generateIdeaData, generateUpdatedIdeaData} from "../Actions/userIdeaActions";
 import {admin} from "../ConstData/users";
 import CreateProduct from "../Actions/createProductActions";
+import {randomProductName} from "../Actions/createProductActions";
 
 describe('UserIdea Tests', () => {
     let idToken, ideaId, ideaData, updatedIdeaData, productId;
-    const randomProductName = CreateProduct.generateRandomProductName();
-
 
     before(() => {
-        return AuthActions.signInAndSaveToken(admin.userName, admin.password).then((token) => {
+        return AuthActions.signInAndSaveToken(admin.userName, admin.password).then(({token}) => {
             idToken = token;
         }).then(() => {
             CreateProduct.createProduct(randomProductName, idToken).then((response) => {

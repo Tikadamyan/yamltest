@@ -15,3 +15,6 @@ export const metricsAPIEndpoint = `${Cypress.env('apiBaseUrl')}/api/v1/workspace
 export const productsAPIEndpoint = `${Cypress.env('apiBaseUrl')}/api/v1/workspaces/${Cypress.env('workspaceId')}/products`;
 
 export const userIdeaApiEndpoint = `${Cypress.env('apiBaseUrl')}/api/v1/workspaces/${Cypress.env('workspaceId')}/ideas`;
+
+export const okrEndpoint = `${Cypress.env('apiBaseUrl')}/api/v1/workspaces/${Cypress.env('workspaceId')}/okrs`;
+

@@ -6,7 +6,7 @@ describe('User Authentication and Invite', () => {
   let idToken;
 
   before(() => {
-    return AuthActions.signInAndSaveToken(admin.userName, admin.password).then((token) => {
+    return AuthActions.signInAndSaveToken(admin.userName, admin.password).then(({token}) => {
       idToken = token;
     });
   });
