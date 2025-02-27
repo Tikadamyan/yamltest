@@ -1,26 +1,17 @@
 import AuthActions from '../Actions/authActions';
 import AddTeamsActions from '../Actions/addTeamsActions';
-import InviteUserActions from "../Actions/inviteUserActions";
 import teamGroupActions from "../Actions/team-groupActions";
+import {randomTeamName, groupName, updateTeamName} from "../Actions/addTeamsActions";
 import {admin} from "../ConstData/users";
 
 
 describe('Teams Management', () => {
   let idToken, createdTeamId, leadId, teamGroupId;
-  const randomTeamName = AddTeamsActions.generateRandomTeamsName();
-  const updateTeamName = AddTeamsActions.generateRandomTeamsName();
-  const randomEmail = InviteUserActions.generateRandomEmail();
-  const groupName = AddTeamsActions.generateRandomTeamsName();
 
   before(() => {
-    return AuthActions.signInAndSaveToken(admin.userName, admin.password).then((token) => {
+    return AuthActions.signInAndSaveToken(admin.userName, admin.password).then(({token, userId}) => {
       idToken = token;
-    }).then(() => {
-      InviteUserActions.inviteUser(randomEmail, idToken).then((response) => {
-        expect(response.status).to.eq(200);
-        expect(response.body[0].email).to.eq(randomEmail);
-        leadId = response.body[0].id;
-      });
+      leadId = userId
     }).then(() => {
         teamGroupActions.addTeamGroup(groupName, idToken).then((response) => {
             expect(response.status).to.eq(201);

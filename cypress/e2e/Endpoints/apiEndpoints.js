@@ -15,3 +15,5 @@ export const productsAPIEndpoint = `${Cypress.env('apiBaseUrl')}/api/v1/workspac
 export const userIdeaApiEndpoint = `${Cypress.env('apiBaseUrl')}/api/v1/workspaces/1440/ideas`;
 
 export const changePasswordEndpoint = `${Cypress.env('apiBaseUrl')}/api/v1/users/change-password`;
+
+export const okrEndpoint = `${Cypress.env('apiBaseUrl')}/api/v1/workspaces/1440/okrs`;

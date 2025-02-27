@@ -1,12 +1,15 @@
 import SignInActions from './signInActions';
 
 class AuthActions {
-    
+
     static signInAndSaveToken(username, password) {
         return SignInActions.signInAPI(username, password).then(response => {
             expect(response.status).to.eq(201);
-            Cypress.env('token', response.body.idToken);
-            return cy.wrap(response.body.idToken);
+            const token = response.body.idToken;
+            const userId = response.body.loggedInUser.user.id;
+            Cypress.env('token', token);
+            Cypress.env('userId', userId);
+            return cy.wrap({token, userId});
         });
     }
 }

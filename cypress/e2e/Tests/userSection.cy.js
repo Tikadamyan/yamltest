@@ -12,7 +12,7 @@ describe('User API Test', () => {
     deactivateUser = new DeactivateUser();
     deleteUser = new DeleteUser();
 
-    return AuthActions.signInAndSaveToken(admin.userName, admin.password).then((token) => {
+    return AuthActions.signInAndSaveToken(admin.userName, admin.password).then(({token}) => {
       idToken = token;
     });
   });

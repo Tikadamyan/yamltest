@@ -9,7 +9,7 @@ describe('Change Password Actions', () => {
     const newPassword = ChangePasswordActions.generateRandomPassword();
 
     before(() => {
-        return AuthActions.signInAndSaveToken(testUser.userName, oldPassword).then((token) => {
+        return AuthActions.signInAndSaveToken(testUser.userName, oldPassword).then(({token}) => {
             idToken = token;
         })
     })
