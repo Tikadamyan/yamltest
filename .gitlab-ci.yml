@@ -6,9 +6,6 @@ stages:
 variables:
   API_URL: ""
 
-before_script:
-  - echo "Current branch: $CI_COMMIT_BRANCH"
-
 build:
   image: node:16
   stage: build
@@ -24,6 +21,8 @@ test_dev:
   stage: test_dev
   variables:
     API_URL: "https://api.dev.prodmap.ai"
+  before_script:
+    - echo "Running tests on DEV environment"
   script:
     - npm ci
     - npm install mochawesome --save-dev
@@ -40,6 +39,8 @@ test_prod:
   stage: test_prod
   variables:
     API_URL: "https://api.prodmap.ai"
+  before_script:
+    - echo "Running tests on PROD environment"
   script:
     - npm ci
     - npm install mochawesome --save-dev
