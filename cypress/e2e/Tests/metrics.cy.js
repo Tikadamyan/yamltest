@@ -6,7 +6,7 @@ describe('Metrics API Test', () => {
   let idToken, addMetricsInstance, editMetricsInstance, getMetricsInstance, metricId;
 
   before(() => {
-    return AuthActions.signInAndSaveToken(admin.userName, admin.password).then((token) => {
+    return AuthActions.signInAndSaveToken(admin.userName, admin.password).then(({ token }) => {
       idToken = token;
       addMetricsInstance = new AddMetric();
       editMetricsInstance = new EditMetric();
@@ -42,7 +42,7 @@ describe('Metrics API Test', () => {
       const metric = response.body.find(m => m.id === metricId);
       expect(metric).to.exist;
       expect(metric).to.have.all.keys(
-        'createdDate', 'lastModifiedDate', 'id', 'name', 'type', 
+        'createdDate', 'lastModifiedDate', 'id', 'name', 'type',
         'description', 'formula', 'uom', 'level', 'currentValue', 'creator'
       );
       expect(metric.creator).to.have.all.keys('userName', 'fullName', 'id');
@@ -55,9 +55,9 @@ describe('Metrics API Test', () => {
       expect(response.status).to.eq(204);
       return getMetricsInstance.getMetrics(idToken).then((getResponse) => {
         const metric = getResponse.body.find(m => m.id === metricId);
-        expect(metric).to.be.undefined; 
+        expect(metric).to.be.undefined;
       });
     });
   });
-  
+
 });

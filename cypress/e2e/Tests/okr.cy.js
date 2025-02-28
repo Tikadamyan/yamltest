@@ -1,17 +1,17 @@
+
 import okrActions from "../Actions/okrActions";
 import AuthActions from "../Actions/authActions";
-import {admin} from "../ConstData/users";
-import {objective, startDate, endDate, updateObjective} from "../Actions/okrActions";
-import {randomTeamName} from "../Actions/addTeamsActions";
+import { admin } from "../ConstData/users";
+import { objective, startDate, endDate, updateObjective } from "../Actions/okrActions";
+import { randomTeamName } from "../Actions/addTeamsActions";
 import AddTeamsActions from "../Actions/addTeamsActions";
-import AddMetrics from "../Actions/addMetricsActions";
-
+import { AddMetric } from "../Actions/metricsActions"
 describe('OKR Management', () => {
     let idToken, usersId, okrId, teamId, metricId, keyResultsId;
-    const randomMetric = AddMetrics.generateRandomMetricsName();
-
+    const addMetric = new AddMetric();
+    const randomMetric = addMetric.generateRandomMetricsName()
     before(() => {
-        return AuthActions.signInAndSaveToken(admin.userName, admin.password).then(({token, userId}) => {
+        return AuthActions.signInAndSaveToken(admin.userName, admin.password).then(({ token, userId }) => {
             idToken = token;
             usersId = userId;
         }).then(() => {
@@ -22,7 +22,7 @@ describe('OKR Management', () => {
                 teamId = response.body.id;
             })
         }).then(() => {
-            AddMetrics.addMetrics(randomMetric, idToken).then((response) => {
+            addMetric.addMetrics(randomMetric, idToken).then((response) => {
                 expect(response.status).to.eq(200);
                 expect(response.body.name).to.eq(randomMetric);
                 expect(response.body).to.have.property('id');
@@ -40,7 +40,6 @@ describe('OKR Management', () => {
             okrId = response.body.id;
         });
     });
-
     it('Should Get Okr from Okrs list', () => {
         okrActions.getAllOkrs(idToken).then(response => {
             const findInOkr = response.body.find(item => item.id === okrId);
@@ -51,13 +50,11 @@ describe('OKR Management', () => {
             expect(findInOkr.owner.id).to.eq(usersId);
         })
     });
-
     it('Should update Okr', () => {
-        okrActions.updateOkr(idToken, updateObjective, usersId, startDate, endDate, okrId ,teamId).then((response) => {
+        okrActions.updateOkr(idToken, updateObjective, usersId, startDate, endDate, okrId, teamId).then((response) => {
             expect(response.status).to.eq(204);
         })
     });
-
     it('Should Get updated Okr', () => {
         okrActions.getOkr(idToken, okrId).then((response) => {
             const findInTeams = response.body.teams.find(item => item.id === teamId);
@@ -67,7 +64,6 @@ describe('OKR Management', () => {
             expect(findInTeams.name).to.eq(randomTeamName);
         })
     });
-
     it('Should add Okr key results', () => {
         okrActions.addKeyResults(idToken, okrId, metricId).then((response) => {
             expect(response.status).to.eq(200);
@@ -76,9 +72,8 @@ describe('OKR Management', () => {
             keyResultsId = response.body.id;
         })
     });
-
     it('Should Get Okr Key Results ', () => {
-        okrActions.getKeyResult(idToken, okrId,keyResultsId).then((response) => {
+        okrActions.getKeyResult(idToken, okrId, keyResultsId).then((response) => {
             expect(response.status).to.eq(201);
             expect(response.body.id).to.eq(keyResultsId);
             expect(response.body.metric.id).to.eq(metricId);
@@ -86,7 +81,6 @@ describe('OKR Management', () => {
             expect(response.body.metric.creator.id).to.eq(usersId);
         })
     });
-
     it('Should Delete Okr Key Results', () => {
         okrActions.deleteOkrKeyResults(idToken, okrId, keyResultsId).then((response) => {
             expect(response.status).to.eq(200);
@@ -96,7 +90,6 @@ describe('OKR Management', () => {
             })
         })
     });
-
     it('Should Delete Okr', () => {
         okrActions.deleteOkr(idToken, okrId).then((response) => {
             expect(response.status).to.eq(204);

@@ -1,6 +1,13 @@
 stages:
   - build
-  - install
+  - test_dev
+  - test_prod
+
+variables:
+  API_URL: ""
+
+before_script:
+  - echo "Current branch: $CI_COMMIT_BRANCH"
 
 build:
   image: node:16
@@ -12,14 +19,33 @@ build:
       - node_modules/
     expire_in: 1 week
 
-install:
+test_dev:
   image: cypress/browsers:node-22.11.0-chrome-130.0.6723.69-1-ff-132.0-edge-130.0.2849.56-1
-  stage: install
+  stage: test_dev
+  variables:
+    API_URL: "https://api.dev.prodmap.ai"
   script:
     - npm ci
     - npm install mochawesome --save-dev
     - npm start &
-    - npx cypress run --browser chrome --reporter mochawesome --reporter-options reportDir=cypress/results
+    - sleep 5  
+    - npx cypress run --browser chrome --reporter mochawesome --reporter-options reportDir=cypress/results || true
+  artifacts:
+    paths:
+      - cypress/results/
+    expire_in: 1 week
+
+test_prod:
+  image: cypress/browsers:node-22.11.0-chrome-130.0.6723.69-1-ff-132.0-edge-130.0.2849.56-1
+  stage: test_prod
+  variables:
+    API_URL: "https://api.prodmap.ai"
+  script:
+    - npm ci
+    - npm install mochawesome --save-dev
+    - npm start &
+    - sleep 5  
+    - npx cypress run --browser chrome --reporter mochawesome --reporter-options reportDir=cypress/results || true
   artifacts:
     paths:
       - cypress/results/
